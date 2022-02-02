@@ -20,9 +20,9 @@ void Land::PlantMines()
 	for (int i = 0; i < minesNumber; i++)
 	{
 		
-		srand((unsigned)time(nullptr)+i);
+		srand(time(0)+i);
 		int x = rand() % width;
-		srand((unsigned)time(nullptr)+i+3568);
+		srand(x+i+3568);
 		int y = rand() % height;
 		mines[i].x = x;
 		mines[i].y = y;
@@ -33,6 +33,8 @@ void Land::PlantMines()
 		if (x + 1 < height) land[y][x + 1].IncreaseMinesAround();
 		if (y + 1 < width) land[y + 1][x].IncreaseMinesAround();
 		if (x + 1 < height && y + 1 < width) land[y + 1][x + 1].IncreaseMinesAround();
+		if (x - 1 >= 0 && y + 1 < width) land[y + 1][x - 1].IncreaseMinesAround();
+		if (x + 1 < height && y - 1 >= 0) land[y - 1][x + 1].IncreaseMinesAround();
 	}
 }
 
@@ -49,7 +51,7 @@ Land::Land(int _width, int _height, int _mines)
 	width = _width;
 	height = _height;
 	minesNumber = _mines;
-	mines = new coordinates[minesNumber];
+	mines = new Coordinates[minesNumber];
 	minesRevealed = false;
 	MakePortions();
 	PlantMines();
@@ -84,6 +86,14 @@ void Land::OpenPortion(int _xPos, int _yPos)
 		{
 			if (!land[_yPos + 1][_xPos + 1].IsVisible()) OpenPortion(_xPos + 1, _yPos + 1);
 		}
+		if (_xPos - 1 >= 0 && _yPos + 1 < width)
+		{
+			if (!land[_yPos + 1][_xPos - 1].IsVisible()) OpenPortion(_xPos - 1, _yPos + 1);
+		}
+		if(_xPos + 1 < height && _yPos - 1 >= 0)
+		{
+			if (!land[_yPos - 1][_xPos + 1].IsVisible()) OpenPortion(_xPos + 1, _yPos - 1);
+		}
 	}
 
 	else if (land[_yPos][_xPos].GetMinesAround() == '*')
@@ -106,7 +116,7 @@ void Land::PrintTheLand()
 	{
 		for (int j = 0; j < width; j++)
 		{
-			std::cout << "| " << ((land[i][j].IsVisible()) ? (land[i][j].GetMinesAround()) : ' ') << " ";
+			std::cout << "|" << ((land[i][j].IsVisible()) ? (land[i][j].GetMinesAround()) : ' ');
 			//std::cout << "| " << land[i][j].GetMinesAround() << " ";
 		}
 		std::cout << "|\n";

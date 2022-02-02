@@ -1,7 +1,7 @@
 #pragma once
 #include "Portion.h"
 
-struct coordinates
+struct Coordinates
 {
 	int x;
 	int y;
@@ -10,7 +10,7 @@ struct coordinates
 class Land
 {
 	Portion** land;
-	coordinates* mines;
+	Coordinates* mines;
 	int width;
 	int height;
 	int minesNumber;
