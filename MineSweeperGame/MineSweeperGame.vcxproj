@@ -139,7 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Land.cpp" />
     <ClCompile Include="MineSweeperGame.cpp" />
+    <ClCompile Include="Portion.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Land.h" />
+    <ClInclude Include="Portion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
