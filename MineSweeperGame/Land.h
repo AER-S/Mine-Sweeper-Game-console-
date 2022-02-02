@@ -20,14 +20,14 @@ class Land
 
 	void MakePortions();
 	void PlantMines();
-	void RevealMines();
 
 public:
 	Land(int _width, int _height, int _mines);
-	void OpenPortion(int _xPos, int _yPos);
+	void OpenPortion(int _xPos, int _yPos, int _level);
 	void PrintTheLand();
 	bool MinesRevealed();
 	bool AllRevealed();
+	void RevealMines();
 	int GetRevealed();
 	~Land();
 };
